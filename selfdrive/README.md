@@ -1,3 +1,4 @@
+from:https://github.com/littlemountainman/selfdrive
 
 selfdrive
 ==================
@@ -12,8 +13,7 @@ you will get 10 files labeled from Chunk1.zip to Chunk10.zip. Choose one and unp
 data folder. In the data folder should now be folders with name 2019-0.... etc. Then you have to read 
 them. 
 <pre>
-cd data/
-python ../preperation/reader.py ./ ../unpacked_data
+sh parser.sh
 </pre> 
 
 You can change the last argument to whereever you want to save your .npy files. So the training files.
@@ -21,13 +21,13 @@ Keep in mind that you will have to remember this folder. Now the unpacked_data f
 
 ## Training 
 <pre>
-python3 train.py ./unpacked_data/
+train.sh
 </pre>
 this will give you two files once it's done. The first file "learning.h5" gets updated every epoch. The second file "final.h5" will be the final version and generated when the training is over. Both are the same at the end. They have the same weights in them.
 
 ## Testing 
 <pre>
-python3 app.py <path-to-video-driving-file> final.h5
+sh evaluate.sh
 </pre>
 
 If you encounter any issues feel free to post them. Have fun !

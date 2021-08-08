@@ -26,7 +26,7 @@ def load_numpy(f,l):
     return features, labels
 
 
-def exp_deploy(features,labels):
+def exp_deploy(features,labels, model_path):
     
     #features, labels = shuffle(features, labels)
     #print(labels.shape)
@@ -43,7 +43,7 @@ def exp_deploy(features,labels):
     model.summary()
     # Model gets saved after each dataset. It still improves. GG
 
-    model.save("final.h5")
+    model.save(model_path + "/final.h5")
 
 def det_coeff(y_true, y_pred):
     u = K.sum(K.square(y_true - y_pred))
@@ -55,8 +55,10 @@ def root_mean_squared_error(y_true, y_pred):
 if __name__ == '__main__':
     ## Training numpy files 
     filepath = sys.argv[1]
+    model_path = sys.argv[2]
+
     opt = Adam(lr=1e-4)
-    model, callbacks_list = experimental(640, 480)
+    model, callbacks_list = experimental(640, 480, model_path)
     model.compile(optimizer=opt, loss="mse", metrics=["accuracy", det_coeff])
     i = 1
     j = 0
@@ -88,7 +90,7 @@ while j < 20:
                         l_list.append(np.load(b)[::6][:950])
                     features = np.concatenate(f_list)
                     labels = np.concatenate(l_list)
-                    exp_deploy(features, labels)
+                    exp_deploy(features, labels, model_path)
                     features_list = []
                     labels_list = []
                     f_list = []

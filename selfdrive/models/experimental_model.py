@@ -19,7 +19,7 @@ def mod_elu():
     pass 
 
 input_shape = (640,480,3)
-def experimental(image_x, image_y):
+def experimental(image_x, image_y, model_path):
     model = Sequential()
     
     model.add(Lambda(lambda x: x/127.5 - 1.,
@@ -38,8 +38,8 @@ def experimental(image_x, image_y):
     model.add(ELU())
     model.add(Dense(3))
         
-    model.save("learningmodel.h5")
-    filepath = "experimental.h5"
+    model.save(model_path + "/learningmodel.h5")
+    filepath = model_path + "/experimental.h5"
     checkpoint = ModelCheckpoint(filepath, verbose=1, save_best_only=True)
     callbacks_list = [checkpoint]
 
